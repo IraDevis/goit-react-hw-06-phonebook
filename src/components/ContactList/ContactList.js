@@ -1,4 +1,11 @@
-const ContactList = ({ contacts, onDelete }) => {
+import { useSelector, useDispatch } from "react-redux";
+import getContactsList from "../../redux/contacts/contacts-selector";
+import { deleteContact } from "../../redux/contacts/contacts-actions";
+
+export default function ContactList() {
+  const contacts = useSelector(getContactsList);
+  const dispatch = useDispatch();
+
   return (
     <>
       <ul>
@@ -7,7 +14,7 @@ const ContactList = ({ contacts, onDelete }) => {
             <p>
               {name}: {number}
             </p>
-            <button type="button" onClick={() => onDelete(id)}>
+            <button type="button" onClick={() => dispatch(deleteContact(id))}>
               Delete
             </button>
           </li>
@@ -15,6 +22,4 @@ const ContactList = ({ contacts, onDelete }) => {
       </ul>
     </>
   );
-};
-
-export default ContactList;
+}

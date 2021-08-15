@@ -1,9 +1,13 @@
-// import { Component } from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilter } from "../../redux/filter/filter-actions";
+import { filtered } from "../../redux/filter/filter-selector";
 
 import styles from "./Filter.module.css";
 
-export default function Filter({ value, onChange }) {
+export default function Filter() {
+  const value = useSelector(filtered);
+  const dispatch = useDispatch();
+
   return (
     <>
       <label className={styles.label}>
@@ -12,39 +16,9 @@ export default function Filter({ value, onChange }) {
           className={styles.input}
           type="text"
           value={value}
-          onChange={onChange}
+          onChange={(e) => dispatch(getFilter(e.target.value))}
         ></input>
       </label>
     </>
   );
 }
-
-Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
-};
-
-// class Filter extends Component {
-// static propTypes = {
-//   onChange: PropTypes.func.isRequired,
-//   value: PropTypes.string,
-// };
-
-//   render() {
-// return (
-//   <>
-//     <label className={styles.label}>
-//       Find by name
-//       <input
-//         className={styles.input}
-//         type="text"
-//         value={this.props.value}
-//         onChange={this.props.onChange}
-//       ></input>
-//     </label>
-//   </>
-// );
-//   }
-// }
-
-// export default Filter;
